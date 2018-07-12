@@ -4,12 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.mariojd.springboot</groupId>
-    <artifactId>attribute</artifactId>
+    <artifactId>read-attribute</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>attribute</name>
-    <description>Different method to read attributes project for Spring Boot</description>
+    <description>The different methods to read attributes in Spring Boot project</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -26,10 +25,15 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -45,6 +49,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>
