@@ -9,4 +9,5 @@ public class AttributeApplication {
     public static void main(String[] args) {
         SpringApplication.run(AttributeApplication.class, args);
     }
+
 }
