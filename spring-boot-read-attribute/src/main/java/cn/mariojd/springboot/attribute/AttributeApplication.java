@@ -41,6 +41,7 @@ public class AttributeApplication {
         bean.getAttrByPropertiesLoaderUtils();
         bean.getArrayAttr();
         bean.getListAttr();
+        bean.handleValue();
     }
 
     @Value("${" + SPRING_BOOT_HELLO + "}")
@@ -120,6 +121,30 @@ public class AttributeApplication {
      */
     public void getListAttr() {
         System.out.println("6. 通过@Value注解获取List: " + list.toString());
+    }
+
+    /**
+     * 注入普通字符串
+     */
+    @Value("str")
+    private String str;
+
+    /**
+     * 注入操作系统属性
+     */
+    @Value("#{systemProperties['os.name']}")
+    private String systemPropertiesName;
+
+    /**
+     * 注入表达式结果
+     */
+    @Value("#{ T(java.lang.Math).random() * 100.0 }")
+    private double randomNumber;
+
+    public void handleValue() {
+        System.out.println("str : " + str);
+        System.out.println("systemPropertiesName : " + systemPropertiesName);
+        System.out.println("randomNumber : " + randomNumber);
     }
 
 }
