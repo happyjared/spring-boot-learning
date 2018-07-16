@@ -5,10 +5,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan(basePackages = "cn.mariojd.springboot.shardingjdbc.demo.mapper")
-public class SpringbootShardingjdbcDemoApplication {
+@MapperScan(basePackages = "cn.mariojd.springboot.shardingjdbc.mapper")
+public class SpringBootShardingjdbcApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootShardingjdbcDemoApplication.class, args);
+        SpringApplication.run(SpringBootShardingjdbcApplication.class, args);
     }
 }
