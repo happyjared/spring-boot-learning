@@ -1,4 +1,4 @@
-package cn.mariojd.springboot.shardingjdbc.demo;
+package cn.mariojd.springboot.shardingjdbc;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

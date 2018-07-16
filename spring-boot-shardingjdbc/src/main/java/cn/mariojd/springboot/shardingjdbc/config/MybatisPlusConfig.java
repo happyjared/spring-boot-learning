@@ -1,4 +1,4 @@
-package cn.mariojd.springboot.shardingjdbc.demo.config;
+package cn.mariojd.springboot.shardingjdbc.config;
 
 import com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean;
 import io.shardingsphere.core.api.ShardingDataSourceFactory;

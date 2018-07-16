@@ -1,4 +1,4 @@
-package cn.mariojd.springboot.shardingjdbc.demo;
+package cn.mariojd.springboot.shardingjdbc;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
