@@ -1,5 +1,6 @@
 package cn.mariojd.jsr303.valid.controller;
 
+import cn.mariojd.jsr303.valid.vo.AttributeVO;
 import cn.mariojd.jsr303.valid.vo.ValidVO;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Range;
@@ -47,6 +48,11 @@ public class ValidController {
         map.put("name", name);
         map.put("email", email);
         return map;
+    }
+
+    @GetMapping("attribute")
+    public Object test03(@Valid AttributeVO attributeVO) {
+        return attributeVO;
     }
 
 }
