@@ -39,7 +39,7 @@ public class UserService {
     public void optimisticLock(User user, long sleepMillis) {
         userRepository.findById(user.getId()).ifPresent(u -> {
             log.info(u.toString());
-            u.setName("OptimisticLock Lock: " + u.getName());
+            u.setName("OptimisticLock Lock: " + u.getName() + " Sleep millis: " + sleepMillis);
             try {
                 Thread.sleep(sleepMillis);
             } catch (InterruptedException e) {

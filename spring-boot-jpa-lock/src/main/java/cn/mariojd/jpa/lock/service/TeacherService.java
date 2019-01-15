@@ -2,9 +2,9 @@ package cn.mariojd.jpa.lock.service;
 
 import cn.mariojd.jpa.lock.entity.Teacher;
 import cn.mariojd.jpa.lock.repository.TeacherRepository;
-import cn.mariojd.jpa.lock.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -33,15 +33,17 @@ public class TeacherService {
 
     /**
      * 悲观锁：更新教师
+     * 使用for update一定要加上这个事务
+     * 当事务处理完后，for update才会将行级锁解除
      *
      * @param teacher
      * @param sleepMillis
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class, isolation = Isolation.READ_COMMITTED)
     public void pessimisticLock(Teacher teacher, long sleepMillis) {
-        teacherRepository.findByIdWithNativeQuery2(teacher.getId()).ifPresent(t -> {
+        teacherRepository.findByTeacherId(teacher.getId()).ifPresent(t -> {
             log.info(t.toString());
-            t.setName("Pessimistic Lock: " + t.getName());
+            t.setName("Pessimistic Lock: " + t.getName() + " Sleep millis: " + sleepMillis);
             try {
                 Thread.sleep(sleepMillis);
             } catch (InterruptedException e) {

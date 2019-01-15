@@ -41,7 +41,14 @@ public class LockApplicationTests {
         teacherService.add(teacher);
 
         // 悲观锁：更新Teacher
-        new Thread(() -> teacherService.pessimisticLock(teacher, 1000L)).start();
+        new Thread(() -> {
+            try {
+                Thread.sleep(5000L);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            teacherService.pessimisticLock(teacher, 0L);
+        }).start();
         teacherService.pessimisticLock(teacher, 10000L);
     }
 
