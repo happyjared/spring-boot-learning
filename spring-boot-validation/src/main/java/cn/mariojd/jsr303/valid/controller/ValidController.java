@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -27,23 +26,25 @@ import java.util.stream.Collectors;
 public class ValidController {
 
     @PostMapping
-    public Object test01(@Valid ValidVO validVO, BindingResult bindingResult) {
+    public Object test01(@RequestBody @Valid ValidVO validVO, BindingResult bindingResult) {
         String result = "";
         if (bindingResult.hasErrors()) {
             result = bindingResult.getFieldErrors().stream().map(FieldError::getDefaultMessage)
                     .collect(Collectors.joining(","));
         }
-        validVO.setResult(result);
-        return validVO;
+        Map<String, Object> map = new HashMap<>(4);
+        map.put("vo", validVO.toString());
+        map.put("result", result);
+        return map;
     }
 
     @GetMapping
-    public Object test02(
+    public Object test02(@NotBlank(message = "name参数缺失") String name,
                          @Range(min = 1, max = 100, message = "id最小为1最大为100") int id,
                          @NotBlank(message = "email不能为空") @Email(message = "邮箱格式错误") String email) {
         Map<String, Object> map = new HashMap<>(4);
         map.put("id", id);
-//        map.put("score", score);
+        map.put("name", name);
         map.put("email", email);
         return map;
     }
