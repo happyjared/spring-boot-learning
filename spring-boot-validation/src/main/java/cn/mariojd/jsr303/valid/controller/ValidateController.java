@@ -1,7 +1,7 @@
 package cn.mariojd.jsr303.valid.controller;
 
 import cn.mariojd.jsr303.valid.vo.AttributeVO;
-import cn.mariojd.jsr303.valid.vo.ValidVO;
+import cn.mariojd.jsr303.valid.vo.ValidateVO;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.validation.BindingResult;
@@ -24,17 +24,17 @@ import java.util.stream.Collectors;
 @Validated
 @RestController
 @RequestMapping("valid")
-public class ValidController {
+public class ValidateController {
 
     @PostMapping
-    public Object test01(@RequestBody @Valid ValidVO validVO, BindingResult bindingResult) {
+    public Object test01(@RequestBody @Valid ValidateVO validateVO, BindingResult bindingResult) {
         String result = "";
         if (bindingResult.hasErrors()) {
             result = bindingResult.getFieldErrors().stream().map(FieldError::getDefaultMessage)
                     .collect(Collectors.joining(","));
         }
         Map<String, Object> map = new HashMap<>(4);
-        map.put("vo", validVO.toString());
+        map.put("vo", validateVO.toString());
         map.put("result", result);
         return map;
     }

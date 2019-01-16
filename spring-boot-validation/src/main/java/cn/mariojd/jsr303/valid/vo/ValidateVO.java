@@ -17,7 +17,7 @@ import java.util.List;
  * @date 2019/1/15 10:22
  */
 @Data
-public class ValidVO {
+public class ValidateVO {
 
     // 空和非空检查: @Null、@NotNull、@NotBlank、@NotEmpty
 
