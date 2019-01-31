@@ -1,4 +1,4 @@
-package cn.mariojd.jsr303.valid;
+package cn.mariojd.jsr303.validate;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

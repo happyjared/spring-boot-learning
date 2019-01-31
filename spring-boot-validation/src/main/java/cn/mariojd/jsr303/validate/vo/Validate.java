@@ -1,4 +1,4 @@
-package cn.mariojd.jsr303.valid.vo;
+package cn.mariojd.jsr303.validate.vo;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.*;
@@ -17,7 +17,7 @@ import java.util.List;
  * @date 2019/1/15 10:22
  */
 @Data
-public class ValidateVO {
+public class Validate {
 
     // 空和非空检查: @Null、@NotNull、@NotBlank、@NotEmpty
 
