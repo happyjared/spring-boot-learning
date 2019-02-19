@@ -1,8 +1,8 @@
 spring:
   datasource:
     username: root
-    password: winall
-    url: jdbc:mysql://192.168.1.165:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8&tinyInt1isBit=false
+    password: root
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8&tinyInt1isBit=false
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true
@@ -10,8 +10,8 @@ spring:
       ddl-auto: create
       naming:
         # 1. 表名及字段全小写下划线分隔命名策略(默认)
-         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        # physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
         # 2. 物理命名策略，未定义 @Table 和 @Column 将以实体名和属性名作为表名及字段名
         # physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
         # 3. 自定义的命名策略
-        # physical-strategy: cn.mariojd.jpa.naming.config.CustomNamingStrategyConfig
+        physical-strategy: cn.mariojd.jpa.naming.config.CustomNamingStrategyConfig
