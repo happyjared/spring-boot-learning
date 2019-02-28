@@ -25,23 +25,40 @@ public class TeacherService {
      *
      * @param teacher
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional
     public void add(Teacher teacher) {
         teacherRepository.save(teacher);
     }
 
-
     /**
-     * 悲观锁：更新教师
-     * 使用for update一定要加上这个事务
-     * 当事务处理完后，for update才会将行级锁解除
+     * 悲观锁①：更新教师
      *
      * @param teacher
      * @param sleepMillis
      */
-    @Transactional(rollbackFor = Exception.class, isolation = Isolation.READ_COMMITTED)
+    @Transactional
     public void pessimisticLock(Teacher teacher, long sleepMillis) {
-        teacherRepository.findByTeacherId(teacher.getId()).ifPresent(t -> {
+        teacherRepository.findById(teacher.getId()).ifPresent(t -> {
+            log.info(t.toString());
+            t.setName("Pessimistic Lock: " + t.getName() + " Sleep millis: " + sleepMillis);
+            try {
+                Thread.sleep(sleepMillis);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            teacherRepository.save(t);
+        });
+    }
+
+    /**
+     * 悲观锁②：更新教师
+     *
+     * @param teacher
+     * @param sleepMillis
+     */
+    @Transactional
+    public void pessimisticLock2(Teacher teacher, long sleepMillis) {
+        teacherRepository.findTeacherForUpdate(teacher.getId()).ifPresent(t -> {
             log.info(t.toString());
             t.setName("Pessimistic Lock: " + t.getName() + " Sleep millis: " + sleepMillis);
             try {

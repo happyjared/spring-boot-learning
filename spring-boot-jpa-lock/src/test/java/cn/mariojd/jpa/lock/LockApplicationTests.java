@@ -24,32 +24,33 @@ public class LockApplicationTests {
 
     @Test
     public void testUser() {
-        // 插入1条数据
+        // 新增数据
         User user = new User("Jared");
         userService.add(user);
 
-        // 乐观锁：更新User
-        new Thread(() -> userService.optimisticLock(user, 100L)).start();
         // @throws org.springframework.orm.ObjectOptimisticLockingFailureException
-        userService.optimisticLock(user, 3000L);
+
+        // 乐观锁①：更新User
+        new Thread(() -> userService.optimisticLock(user, 500L)).start();
+        userService.optimisticLock(user, 1000L);
+
+        // 乐观锁②：更新User
+        userService.optimisticLock2(user);
     }
 
     @Test
     public void testTeacher() {
-        // 插入1条数据
+        // 新增数据
         Teacher teacher = new Teacher("Nancy");
         teacherService.add(teacher);
 
-        // 悲观锁：更新Teacher
-        new Thread(() -> {
-            try {
-                Thread.sleep(5000L);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            teacherService.pessimisticLock(teacher, 0L);
-        }).start();
-        teacherService.pessimisticLock(teacher, 10000L);
+        // 悲观锁①：更新Teacher
+        new Thread(() -> teacherService.pessimisticLock(teacher, 500L)).start();
+        teacherService.pessimisticLock(teacher, 1000L);
+
+        // 悲观锁②：更新Teacher
+        new Thread(() -> teacherService.pessimisticLock2(teacher, 500L)).start();
+        teacherService.pessimisticLock2(teacher, 1000L);
     }
 
 }

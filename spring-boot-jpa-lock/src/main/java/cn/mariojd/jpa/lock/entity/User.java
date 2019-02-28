@@ -7,6 +7,8 @@ import javax.persistence.*;
 
 
 /**
+ * 乐观锁示例
+ *
  * @author Jared
  * @date 2019/1/14 13:39
  */
@@ -21,8 +23,11 @@ public class User {
 
     private String name;
 
+    /**
+     * 乐观锁实现方式①：直接添加@Version
+     */
     @Version
-    private Integer version;
+    private Integer version = 0;
 
     public User(String name) {
         this.name = name;

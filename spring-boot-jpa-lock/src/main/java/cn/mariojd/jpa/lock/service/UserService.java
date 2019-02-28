@@ -24,18 +24,18 @@ public class UserService {
      *
      * @param user
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional
     public void add(User user) {
         userRepository.save(user);
     }
 
     /**
-     * 乐观锁：更新用户
+     * 乐观锁①：更新用户
      *
      * @param user
      * @param sleepMillis
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional
     public void optimisticLock(User user, long sleepMillis) {
         userRepository.findById(user.getId()).ifPresent(u -> {
             log.info(u.toString());
@@ -47,6 +47,16 @@ public class UserService {
             }
             userRepository.save(u);
         });
+    }
+
+    /**
+     * 乐观锁①：更新用户
+     *
+     * @param user
+     */
+    @Transactional
+    public void optimisticLock2(User user) {
+        userRepository.updateWithVersion(user.getId(), user.getName(), user.getVersion());
     }
 
 }

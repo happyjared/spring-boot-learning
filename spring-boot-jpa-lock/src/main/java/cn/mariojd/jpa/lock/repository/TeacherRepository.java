@@ -15,16 +15,20 @@ import java.util.Optional;
 public interface TeacherRepository extends JpaRepository<Teacher, Integer> {
 
     /**
-     * 作用的for update作用一样，将此行数据进行加锁，当整个方法将事务提交后，才会解锁
-     *
-     * @param id
-     * @return
+     * 悲观锁实现①：使用@Lock注解，并且设置值为LockModeType.PESSIMISTIC_WRITE (代表行级锁)
      */
-    @Lock(value = LockModeType.PESSIMISTIC_READ)
-    @Query(value = "select t from Teacher t where t.id =?1")
-    Optional<Teacher> findByTeacherId(int id);
-
     @Override
     @Lock(value = LockModeType.PESSIMISTIC_WRITE)
-    <S extends Teacher> S save(S s);
+    Optional<Teacher> findById(Integer id);
+
+//    @Lock(value = LockModeType.PESSIMISTIC_WRITE)
+//    @Query(value = "select t from Teacher t where t.id =?1")
+//    Optional<Teacher> findByTeacherId(int id);
+
+    /**
+     * 悲观锁实现②：手写SQL，结尾加上for update
+     */
+    @Query(value = "select t.* from teacher t where t.id = ?1 for update", nativeQuery = true)
+    Optional<Teacher> findTeacherForUpdate(int id);
+
 }

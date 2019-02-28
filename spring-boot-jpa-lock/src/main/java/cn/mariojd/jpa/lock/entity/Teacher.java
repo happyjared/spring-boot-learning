@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
+ * 悲观锁示例
+ *
  * @author Jared
  * @date 2019/1/14 15:41
  */
