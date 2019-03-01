@@ -21,10 +21,6 @@ public interface TeacherRepository extends JpaRepository<Teacher, Integer> {
     @Lock(value = LockModeType.PESSIMISTIC_WRITE)
     Optional<Teacher> findById(Integer id);
 
-//    @Lock(value = LockModeType.PESSIMISTIC_WRITE)
-//    @Query(value = "select t from Teacher t where t.id =?1")
-//    Optional<Teacher> findByTeacherId(int id);
-
     /**
      * 悲观锁实现②：手写SQL，结尾加上for update
      */

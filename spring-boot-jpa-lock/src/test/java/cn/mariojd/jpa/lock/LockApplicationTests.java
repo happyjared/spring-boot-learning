@@ -26,31 +26,48 @@ public class LockApplicationTests {
     public void testUser() {
         // 新增数据
         User user = new User("Jared");
-        userService.add(user);
+        User dbUser = userService.add(user);
 
         // @throws org.springframework.orm.ObjectOptimisticLockingFailureException
 
         // 乐观锁①：更新User
-        new Thread(() -> userService.optimisticLock(user, 500L)).start();
-        userService.optimisticLock(user, 1000L);
+        new Thread(() -> userService.optimisticLock(dbUser, 500L)).start();
+        userService.optimisticLock(dbUser, 1000L);
 
         // 乐观锁②：更新User
-        userService.optimisticLock2(user);
+        new Thread(() -> userService.optimisticLock(dbUser, 1000L)).start();
+        userService.optimisticLock2(dbUser, 500L);
     }
 
     @Test
     public void testTeacher() {
         // 新增数据
         Teacher teacher = new Teacher("Nancy");
-        teacherService.add(teacher);
+        Teacher dbTeacher = teacherService.add(teacher);
 
         // 悲观锁①：更新Teacher
-        new Thread(() -> teacherService.pessimisticLock(teacher, 500L)).start();
-        teacherService.pessimisticLock(teacher, 1000L);
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000L);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            teacherService.pessimisticLock(dbTeacher, 200L);
+        }).start();
+        // Success
+        teacherService.pessimisticLock(dbTeacher, 2000L);
 
         // 悲观锁②：更新Teacher
-        new Thread(() -> teacherService.pessimisticLock2(teacher, 500L)).start();
-        teacherService.pessimisticLock2(teacher, 1000L);
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000L);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            teacherService.pessimisticLock2(dbTeacher, 300L);
+        }).start();
+        // Success
+        teacherService.pessimisticLock2(dbTeacher, 3000L);
     }
 
 }

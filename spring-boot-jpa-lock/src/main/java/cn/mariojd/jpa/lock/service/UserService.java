@@ -25,8 +25,8 @@ public class UserService {
      * @param user
      */
     @Transactional
-    public void add(User user) {
-        userRepository.save(user);
+    public User add(User user) {
+        return userRepository.save(user);
     }
 
     /**
@@ -55,7 +55,12 @@ public class UserService {
      * @param user
      */
     @Transactional
-    public void optimisticLock2(User user) {
+    public void optimisticLock2(User user, long sleepMillis) {
+        try {
+            Thread.sleep(sleepMillis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         userRepository.updateWithVersion(user.getId(), user.getName(), user.getVersion());
     }
 

@@ -26,8 +26,8 @@ public class TeacherService {
      * @param teacher
      */
     @Transactional
-    public void add(Teacher teacher) {
-        teacherRepository.save(teacher);
+    public Teacher add(Teacher teacher) {
+        return teacherRepository.save(teacher);
     }
 
     /**
@@ -60,7 +60,7 @@ public class TeacherService {
     public void pessimisticLock2(Teacher teacher, long sleepMillis) {
         teacherRepository.findTeacherForUpdate(teacher.getId()).ifPresent(t -> {
             log.info(t.toString());
-            t.setName("Pessimistic Lock: " + t.getName() + " Sleep millis: " + sleepMillis);
+            t.setName("Pessimistic Lock2: " + t.getName() + " Sleep millis: " + sleepMillis);
             try {
                 Thread.sleep(sleepMillis);
             } catch (InterruptedException e) {
