@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface TeacherRepository extends JpaRepository<Teacher, Integer> {
 
     /**
-     * 悲观锁实现①：使用@Lock注解，并且设置值为LockModeType.PESSIMISTIC_WRITE (代表行级锁)
+     * 悲观锁实现①：使用@Lock注解，并且设置值为LockModeType.PESSIMISTIC_WRITE
      */
     @Override
     @Lock(value = LockModeType.PESSIMISTIC_WRITE)
