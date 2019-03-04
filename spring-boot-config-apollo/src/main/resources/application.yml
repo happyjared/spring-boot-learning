@@ -1,0 +1,7 @@
+app:
+  id: 20190304
+apollo:
+  meta: http://localhost:8080
+
+server:
+  port: 18080
