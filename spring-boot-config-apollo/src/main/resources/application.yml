@@ -1,7 +1,22 @@
+# AppId是应用的身份信息
 app:
-  id: 20190304
+  id: 2019
+# 通常为config service的地址
 apollo:
   meta: http://localhost:8080
 
+# 动态调整日志级别
+logging:
+  level:
+    cn.mariojd.config.apollo: error
+
+# 动态切换数据源
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/test1?autoReconnect=true&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+
 server:
   port: 18080
+
