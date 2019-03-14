@@ -32,12 +32,13 @@ public class DynamicLogLevelConfig {
             String oleLevel = change.getOldValue();
             String newLevel = change.getNewValue();
 
+            // 只有合法的日志等级配置才会生效，常见的如 DEBUG, INFO, WARN, ERROR
             Arrays.stream(LogLevel.values()).filter(logLevel ->
-                    StringUtils.startsWithIgnoreCase(newLevel, logLevel.toString())).findFirst().ifPresent(logLevel -> {
-                loggingSystem.setLogLevel("cn.mariojd.config.apollo", logLevel);
-            });
+                    StringUtils.startsWithIgnoreCase(newLevel, logLevel.toString())).findFirst()
+                    .ifPresent(logLevel -> loggingSystem.setLogLevel("cn.mariojd.config.apollo", logLevel));
 
-            log.info("动态调整日志级别：Key -> {} ; OldLevel -> {} ; NewLevel -> {}", key, oleLevel, newLevel);
+            System.out.println(String.format("动态调整日志级别：Key -> %s ; OldLevel -> %s ; NewLevel -> %s",
+                    key, oleLevel, newLevel));
         });
     }
 
