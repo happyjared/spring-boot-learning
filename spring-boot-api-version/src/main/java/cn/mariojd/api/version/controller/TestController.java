@@ -28,10 +28,4 @@ public class TestController {
         return "test02 : " + version;
     }
 
-    @GetMapping
-    @ApiVersion(3)
-    public String test03(@PathVariable String version) {
-        return "test03 : " + version;
-    }
-
 }
