@@ -12,18 +12,18 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019/3/14 13:45
  */
 @Slf4j
-@ApiVersion(2)
+@ApiVersion
 @RestController
 @RequestMapping("api/{version}/test")
 public class TestController {
 
     @GetMapping
-    @ApiVersion
     public String test01(@PathVariable String version) {
         return "test01 : " + version;
     }
 
     @GetMapping
+    @ApiVersion(2)
     public String test02(@PathVariable String version) {
         return "test02 : " + version;
     }
