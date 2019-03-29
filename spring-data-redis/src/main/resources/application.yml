@@ -1,0 +1,4 @@
+spring:
+  redis:
+    host: 59.110.212.17
+    password: 123
