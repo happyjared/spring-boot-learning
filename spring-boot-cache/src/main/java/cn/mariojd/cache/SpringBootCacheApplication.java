@@ -11,6 +11,7 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.PostConstruct;
@@ -28,7 +29,7 @@ public class SpringBootCacheApplication implements ApplicationRunner {
                 .bannerMode(Banner.Mode.OFF)
                 .web(WebApplicationType.NONE)
                 .run(args);
-        log.info("\n\n\n");
+        log.info("\n");
     }
 
     @Resource
@@ -36,7 +37,7 @@ public class SpringBootCacheApplication implements ApplicationRunner {
 
     @PostConstruct
     public void init() {
-        // 初始化20条数据
+        // 初始化数据
         for (int i = 0; i < 10; i++) {
             User user = User.builder().name("ZS" + i).build();
             userRepository.save(user);
@@ -45,6 +46,9 @@ public class SpringBootCacheApplication implements ApplicationRunner {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private Environment environment;
 
     @Override
     public void run(ApplicationArguments args) throws InterruptedException {
@@ -56,11 +60,11 @@ public class SpringBootCacheApplication implements ApplicationRunner {
             userService.page(pageable);
             log.info("Reading page cache...");
         }
-        TimeUnit.SECONDS.sleep(5);
         // 配置5秒中后缓存失效，重新读取
+        TimeUnit.MILLISECONDS.sleep(Integer.parseInt(environment.getProperty("spring.cache.redis.time-to-live", "5000")));
         log.warn("Page Cache expired : " + userService.page(pageable).getTotalElements());
 
-        log.info("\n\n\n");
+        log.info("\n");
 
         // Test CRUD Cache
         User user = userService.add("李四");

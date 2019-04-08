@@ -15,7 +15,7 @@ spring:
     # 非必须，但如果配置了需补充相应的依赖
     #type: redis
     redis:
-      # 过期时间，单位：毫秒
+      # 过期时间5秒，单位：毫秒
       time-to-live: 5000
       key-prefix: cn.mariojd.cache.
       cache-null-values: false
