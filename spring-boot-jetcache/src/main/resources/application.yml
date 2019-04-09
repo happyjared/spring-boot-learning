@@ -1,0 +1,37 @@
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create
+    # 开启 SQL 输出，方便查看结果是否走了缓存
+    show-sql: true
+    open-in-view: false
+
+# @see com.alicp.jetcache.autoconfigure.JetCacheProperties
+jetcache:
+  # 统计间隔，默认0：表示不统计
+  statIntervalMinutes: 15
+  # areaName是否作为缓存key前缀，默认True
+  areaInCacheName: false
+  local:
+    default:
+      # 已支持可选：linkedhashmap、caffeine
+      type: linkedhashmap
+      # key转换器的全局配置，当前只有：fastjson, @see com.alicp.jetcache.support.FastjsonKeyConvertor
+      keyConvertor: fastjson
+      # 每个缓存实例的最大元素的全局配置，仅local类型的缓存需要指定
+      limit: 100
+      # jetcache2.2以上，以毫秒为单位，指定多长时间没有访问，就让缓存失效，当前只有本地缓存支持。0表示不使用这个功能
+      expireAfterAccessInMillis: 30000
+  remote:
+    default:
+      # 已支持可选：redis、tair
+      type: redis.lettuce
+      # 连接格式@see：https://github.com/lettuce-io/lettuce-core/wiki/Redis-URI-and-connection-details
+      uri: redis://:password@59.110.212.17:6379/1?timeout=5s
+      keyConvertor: fastjson
+      # 序列化器的全局配置。仅remote类型的缓存需要指定，可选java和kryo
+      valueEncoder: java
+      valueDecoder: java
+      # 以毫秒为单位指定超时时间的全局配置
+      expireAfterWriteInMillis: 5000

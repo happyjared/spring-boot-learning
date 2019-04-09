@@ -1,0 +1,17 @@
+<configuration scan="true" scanPeriod="300 seconds" debug="false">
+    <appender name="JETCACHE_LOGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>jetcache.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>jetcache.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.alicp.jetcache" level="INFO" additivity="false">
+        <appender-ref ref="JETCACHE_LOGFILE"/>
+    </logger>
+</configuration>
