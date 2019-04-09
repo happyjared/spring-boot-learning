@@ -3,6 +3,7 @@ package cn.mariojd.cache;
 import cn.mariojd.cache.entity.User;
 import cn.mariojd.cache.repository.UserRepository;
 import cn.mariojd.cache.service.UserService;
+import cn.mariojd.cache.service.UserSupportService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -48,6 +49,9 @@ public class SpringBootCacheApplication implements ApplicationRunner {
     private UserService userService;
 
     @Resource
+    private UserSupportService userSupportService;
+
+    @Resource
     private Environment environment;
 
     @Override
@@ -60,7 +64,7 @@ public class SpringBootCacheApplication implements ApplicationRunner {
             userService.page(pageable);
             log.info("Reading page cache...");
         }
-        // 配置5秒中后缓存失效，重新读取
+        // 由于配置是5秒中后缓存失效，这里休眠后重新读取
         TimeUnit.MILLISECONDS.sleep(Integer.parseInt(environment.getProperty("spring.cache.redis.time-to-live", "5000")));
         log.warn("Page Cache expired : " + userService.page(pageable).getTotalElements());
 
@@ -77,5 +81,11 @@ public class SpringBootCacheApplication implements ApplicationRunner {
 
         userService.delete(userId);
         log.warn("User Cache delete : " + userService.get(userId));
+
+        // Test Support Cache
+        userSupportService.list(null);
+        userSupportService.list(1);
+        log.info("Reading user list cache..." + userSupportService.list(1));
     }
+
 }

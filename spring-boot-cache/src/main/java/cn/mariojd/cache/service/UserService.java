@@ -35,7 +35,7 @@ public class UserService {
         return userRepository.findAll(pageable);
     }
 
-    @Cacheable(key = "'user:'+#userId", unless = "#result == null")
+    @Cacheable(key = "'user.'+#userId", unless = "#result == null")
     public Optional<User> get(int userId) {
         return userRepository.findById(userId);
     }
@@ -46,7 +46,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    @CachePut(key = "'user:'+#userId", unless = "#result == null")
+    @CachePut(key = "'user.'+#userId", unless = "#result == null")
     @Transactional
     public Optional<User> update(int userId, String name) {
         Optional<User> userOptional = userRepository.findById(userId);
@@ -57,7 +57,7 @@ public class UserService {
         return userOptional;
     }
 
-    @CacheEvict(key = "'user:'+#userId")
+    @CacheEvict(key = "'user.'+#userId")
     @Transactional
     public void delete(int userId) {
         userRepository.findById(userId).ifPresent(user -> userRepository.delete(user));

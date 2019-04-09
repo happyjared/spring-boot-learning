@@ -7,15 +7,16 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: create
+    # 开启 SQL 输出，方便查看结果是否走了缓存
     show-sql: true
     open-in-view: false
   redis:
     host: localhost
   cache:
-    # 非必须，但如果配置了需补充相应的依赖
+    # 非必须，但如果配置了需补充相应的依赖，否则会出错
     #type: redis
     redis:
-      # 过期时间5秒，单位：毫秒
+      # 过期时间5秒，默认单位：毫秒，等同于设置成 5s、5S
       time-to-live: 5000
       key-prefix: cn.mariojd.cache.
       cache-null-values: false
