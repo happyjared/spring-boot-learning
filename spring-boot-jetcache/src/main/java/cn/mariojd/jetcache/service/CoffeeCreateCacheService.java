@@ -4,6 +4,7 @@ import cn.mariojd.jetcache.entity.Coffee;
 import cn.mariojd.jetcache.repository.CoffeeRepository;
 import com.alicp.jetcache.Cache;
 import com.alicp.jetcache.anno.*;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,23 +22,24 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class CoffeeCreateCacheService {
 
-    public static final String CACHE_NAME = "CoffeeCreateCache:";
+    private static final String CACHE_NAME = "CoffeeCreateCache:";
 
     @Resource
     private CoffeeRepository coffeeRepository;
 
     /**
-     * 使用 @CreateCache 注解创建Cache实例
-     * 以下未定义默认值的参数，将使用yml中指定的全局配置
+     * 使用 @CreateCache 注解创建Cache实例;
+     * 未定义默认值的参数，将使用yml中指定的全局配置;
+     * 缓存在 Local，也可以配置成 both 开启两级缓存
      */
-    @CreateCache(name = CACHE_NAME, expire = 1, localLimit = 10, serialPolicy = SerialPolicy.KRYO,
-            timeUnit = TimeUnit.MINUTES, cacheType = CacheType.BOTH)
+    @CreateCache(name = CACHE_NAME, expire = 1, localLimit = 10,
+            timeUnit = TimeUnit.MINUTES, cacheType = CacheType.LOCAL)
     private Cache<Integer, Coffee> coffeeCache;
 
     @Transactional
     public void add(Coffee coffee) {
-        coffee = coffeeRepository.save(coffee);
-        coffeeCache.put(coffee.getId(), coffee, 30, TimeUnit.SECONDS);
+        coffeeRepository.save(coffee);
+        coffeeCache.put(coffee.getId(), coffee, 3, TimeUnit.SECONDS);
     }
 
     public Optional<Coffee> get(int id) {

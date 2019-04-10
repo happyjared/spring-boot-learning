@@ -19,22 +19,26 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class CoffeeMethodCacheService {
 
-    public static final String CACHE_NAME = "CoffeeMethodCache:";
+    private static final String CACHE_NAME = "CoffeeMethodCache:";
 
     @Resource
     private CoffeeRepository coffeeRepository;
 
-    @Cached(name = CACHE_NAME, key = "#id", expire = 30, localExpire = 10,
-            cacheType = CacheType.BOTH, cacheNullValue = true, localLimit = 10,
-            condition = "#id>0", postCondition = "#result.isPresent()")
-    @CacheRefresh(refresh = 10000, stopRefreshAfterLastAccess = 20000, refreshLockTimeout = 3000,
-            timeUnit = TimeUnit.MILLISECONDS)
-    @CachePenetrationProtect(timeout = 30)
-    public Optional<Coffee> get(int id) {
-        return coffeeRepository.findById(id);
+    @Transactional
+    public Coffee add(Coffee coffee) {
+        return coffeeRepository.save(coffee);
     }
 
-    @CacheUpdate(name = CACHE_NAME, key = "#coffee.id", value = "#result")
+    /**
+     * 缓存在 Remote 的 Redis，也可以配置成 both 开启两级缓存
+     */
+    @Cached(name = CACHE_NAME, key = "#id", cacheType = CacheType.REMOTE, serialPolicy = SerialPolicy.KRYO,
+            condition = "#id>0", postCondition = "result!=null")
+    public Coffee get(int id) {
+        return coffeeRepository.findById(id).orElse(null);
+    }
+
+    @CacheUpdate(name = CACHE_NAME, key = "#coffee.id", value = "result", condition = "#coffee.id!=null")
     @Transactional
     public Coffee update(Coffee coffee) {
         return coffeeRepository.save(coffee);

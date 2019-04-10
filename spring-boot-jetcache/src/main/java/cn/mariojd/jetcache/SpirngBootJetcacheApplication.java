@@ -9,10 +9,14 @@ import com.alicp.jetcache.anno.config.EnableMethodCache;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.Banner;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 这里 @EnableMethodCache，@EnableCreateCacheAnnotation 分别用于激活 @Cached 和 @CreateCache 注解
@@ -24,11 +28,12 @@ import javax.annotation.Resource;
 public class SpirngBootJetcacheApplication implements ApplicationRunner {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpirngBootJetcacheApplication.class, args);
+        new SpringApplicationBuilder()
+                .sources(SpirngBootJetcacheApplication.class)
+                .bannerMode(Banner.Mode.OFF)
+                .web(WebApplicationType.NONE)
+                .run(args);
     }
-
-    @Resource
-    private CoffeeRepository coffeeRepository;
 
     @Resource
     private CoffeeCreateCacheService coffeeCreateCacheService;
@@ -37,29 +42,28 @@ public class SpirngBootJetcacheApplication implements ApplicationRunner {
     private CoffeeMethodCacheService coffeeMethodCacheService;
 
     @Override
-    public void run(ApplicationArguments args) {
+    public void run(ApplicationArguments args) throws InterruptedException {
         // Test Coffee create cache
 
         Coffee latte = Coffee.builder().name("Latte").price(20.0f).build();
         coffeeCreateCacheService.add(latte);
-        int id = latte.getId();
-
-        coffeeCreateCacheService.get(id);
+        log.info("Reading from cache... {}", coffeeCreateCacheService.get(latte.getId()));
+        TimeUnit.SECONDS.sleep(3);
+        log.info("Cache expire... ");
+        coffeeCreateCacheService.get(latte.getId());
         latte.setPrice(25.0f);
-        coffeeCreateCacheService.update(latte);
-        coffeeCreateCacheService.delete(id);
-
-        log.info("\n");
+        latte = coffeeCreateCacheService.update(latte);
+        coffeeCreateCacheService.delete(latte.getId());
 
         // Test Coffee method cache
 
         Coffee cappuccino = Coffee.builder().name("Cappuccino").price(30.0f).build();
-        coffeeRepository.saveCoffee(latte);
-
-        id = cappuccino.getId();
-        coffeeMethodCacheService.get(id);
+        coffeeMethodCacheService.add(cappuccino);
+        coffeeMethodCacheService.get(cappuccino.getId());
+        log.info("Reading from cache... {}", coffeeMethodCacheService.get(cappuccino.getId()));
         cappuccino.setPrice(25.0f);
-        coffeeMethodCacheService.update(cappuccino);
-        coffeeMethodCacheService.delete(id);
+        cappuccino = coffeeMethodCacheService.update(cappuccino);
+        coffeeMethodCacheService.delete(cappuccino.getId());
     }
+
 }

@@ -5,12 +5,11 @@ spring:
       ddl-auto: create
     # 开启 SQL 输出，方便查看结果是否走了缓存
     show-sql: true
-    open-in-view: false
 
 # @see com.alicp.jetcache.autoconfigure.JetCacheProperties
 jetcache:
   # 统计间隔，默认0：表示不统计
-  statIntervalMinutes: 15
+  statIntervalMinutes: 1
   # areaName是否作为缓存key前缀，默认True
   areaInCacheName: false
   local:
@@ -28,7 +27,7 @@ jetcache:
       # 已支持可选：redis、tair
       type: redis.lettuce
       # 连接格式@see：https://github.com/lettuce-io/lettuce-core/wiki/Redis-URI-and-connection-details
-      uri: redis://:password@59.110.212.17:6379/1?timeout=5s
+      uri: redis://localhost:6379/1?timeout=5s
       keyConvertor: fastjson
       # 序列化器的全局配置。仅remote类型的缓存需要指定，可选java和kryo
       valueEncoder: java
