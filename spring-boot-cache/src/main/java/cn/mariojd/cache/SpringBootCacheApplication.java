@@ -30,7 +30,6 @@ public class SpringBootCacheApplication implements ApplicationRunner {
                 .bannerMode(Banner.Mode.OFF)
                 .web(WebApplicationType.NONE)
                 .run(args);
-        log.info("\n");
     }
 
     @Resource
@@ -55,7 +54,7 @@ public class SpringBootCacheApplication implements ApplicationRunner {
     private Environment environment;
 
     @Override
-    public void run(ApplicationArguments args) throws InterruptedException {
+    public void run(ApplicationArguments args) throws Exception {
         // 测试缓存，观察是否有SQL输出
 
         PageRequest pageable = PageRequest.of(0, 5);
