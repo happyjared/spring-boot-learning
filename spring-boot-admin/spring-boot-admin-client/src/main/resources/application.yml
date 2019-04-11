@@ -1,0 +1,28 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: spring-boot-admin-client
+  boot:
+    admin:
+      client:
+        url: http://localhost:8080
+        instance:
+          name: ${spring.application.name}
+          prefer-ip: true
+        # Spring Boot Admin Server 认证信息
+        username: admin
+        password: admin
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+info:
+  version: @project.version@
+  name: @project.artifactId@
+  author: happyJared
+  blog: https://blog.mariojd.cn/

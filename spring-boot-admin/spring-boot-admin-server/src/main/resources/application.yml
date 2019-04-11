@@ -1,0 +1,9 @@
+spring:
+  boot:
+    admin:
+      ui:
+        title: happyJared - Spring Boot Admin
+  security:
+    user:
+      name: admin
+      password: admin
