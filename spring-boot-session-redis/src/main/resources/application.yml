@@ -1,0 +1,11 @@
+spring:
+  session:
+    store-type: redis
+    redis:
+      namespace: cn.mariojd.session.redis
+    timeout: 30S
+  redis:
+    url: redis://wnZUVQxP8FKL04FMqg9wb4yNMHO3pA*G@192.168.1.165:6379/12?timeout=5s
+    lettuce:
+      pool:
+        min-idle: 4
