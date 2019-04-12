@@ -18,6 +18,7 @@ spring:
         # 当该 Admin Server 服务宕机，将自动注册下个 Admin Server 服务器;
         # 如果为false，将针对所有管理服务器进行注册
         register-once: true
+# Actuator 配置
 management:
   endpoints:
     web:
