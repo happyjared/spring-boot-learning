@@ -1,8 +1,45 @@
+spring:
+  application:
+    name: spring-boot-actuator
+  redis:
+    url: redis://localhost:6379
+
+# Actuator 配置
 management:
+  server:
+    address: localhost
+    port: 8080
   endpoint:
     health:
+      # never | when-authorized | always
       show-details: always
+    shutdown:
+      enabled: true
   endpoints:
+    enabled-by-default: true
     web:
       exposure:
         include: "*"
+        exclude:
+        - auditevents
+        - caches
+    jmx:
+      exposure:
+        include:
+        - info
+        - health
+        exclude: configprops
+  metrics:
+    export:
+      elastic:
+        enabled: true
+        # Elasticsearch 服务端口
+        host: http://localhost:12900
+
+# 自定义应用信息
+info:
+  app:
+    encoding: UTF-8
+    java:
+      source: @java.version@
+      target: @java.version@
