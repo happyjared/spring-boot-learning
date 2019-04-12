@@ -6,6 +6,7 @@ spring:
   boot:
     admin:
       client:
+        # Spring Boot Admin Server 服务地址，可配置多个
         url: http://localhost:8080
         instance:
           name: ${spring.application.name}
@@ -13,6 +14,10 @@ spring:
         # Spring Boot Admin Server 认证信息
         username: admin
         password: admin
+        # 设置为true，客户端将只注册1个 Admin Server 服务(按定义的顺序)
+        # 当该 Admin Server 服务宕机，将自动注册下个 Admin Server 服务器;
+        # 如果为false，将针对所有管理服务器进行注册
+        register-once: true
 management:
   endpoints:
     web:
