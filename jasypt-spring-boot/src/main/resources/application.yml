@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&zeroDateTimeBehavior=convertToNull&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8&tinyInt1isBit=false
+    # 对应用户名是 root ，密码为 123456
+    username: ENC[KHRM9dKY8KykzzYbt8rRZQ==]
+    password: ENC[RWmQMxlcukotJAb36PrKSA==]
+
+jasypt:
+  encryptor:
+    password: SBPstLlrFzXW01Okb62R95qvpj4J83Dn
+    property:
+      # 自定义属性加密规则，默认前缀是“ENC(”，后缀为“)”
+      prefix: "ENC["
+      suffix: "]"
+
