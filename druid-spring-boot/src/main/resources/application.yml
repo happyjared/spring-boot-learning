@@ -1,0 +1,33 @@
+spring:
+  jpa:
+    open-in-view: false
+  datasource:
+    druid:
+      ##### JDBC 配置（内嵌数据库可省略）
+      #      # 或spring.datasource.url=
+      #      url:
+      #      # 或spring.datasource.username=
+      #      username:
+      #      # 或spring.datasource.password=
+      #      password:
+      #      # 或spring.datasource.driver-class-name=
+      #      driver-class-name:
+
+      ##### 连接池配置
+      min-idle: 5
+      max-active: 5
+      max-wait: 5000
+      initial-size: 5
+      validation-query: "select 'x'"
+      test-while-idle: true
+      filters: conn,config,stat,wall,slf4j
+
+      ##### 监控配置
+      web-stat-filter:
+        enabled: true
+      stat-view-servlet:
+        enabled: true
+        # http://localhost:8080/druid/login.html
+        login-username: admin
+        login-password: admin
+
