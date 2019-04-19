@@ -3,9 +3,8 @@ spring:
     store-type: redis
     redis:
       namespace: cn.mariojd.session.redis
-    timeout: 30S
+    timeout: 30s
   redis:
-    url: redis://wnZUVQxP8FKL04FMqg9wb4yNMHO3pA*G@192.168.1.165:6379/12?timeout=5s
-    lettuce:
-      pool:
-        min-idle: 4
+    url: redis://wnZUVQxP8FKL04FMqg9wb4yNMHO3pA*G@192.168.1.165:6379
+    timeout: 5s
+    database: 12
