@@ -1,0 +1,8 @@
+# 错误
+server:
+  error:
+    include-stacktrace: never
+    include-exception: false
+    whitelabel:
+      enabled: false
+    path: /error
