@@ -1,0 +1,6 @@
+server:
+  ssl:
+    key-store: classpath:blog.mariojd.cn.jks
+    key-password: jym7l43g5n4
+    key-store-type: JKS
+  port: 8443
