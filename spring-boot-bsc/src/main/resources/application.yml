@@ -1,0 +1,17 @@
+server:
+  port: 19999
+
+spring:
+  redis:
+    host: localhost
+    port: 12379
+    database: 9
+    password: redis6379
+    jedis:
+      pool:
+        min-idle: 5
+        max-idle: 20
+        max-active: 20
+  mvc:
+    servlet:
+      load-on-startup: 1
