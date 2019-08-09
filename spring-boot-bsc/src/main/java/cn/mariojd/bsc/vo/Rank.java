@@ -59,4 +59,9 @@ public class Rank {
      */
     private String home;
 
+    /**
+     * 排名状态
+     */
+    private Boolean status;
+
 }

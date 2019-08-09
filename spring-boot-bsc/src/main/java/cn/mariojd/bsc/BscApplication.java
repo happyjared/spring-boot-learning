@@ -73,6 +73,7 @@ public class BscApplication {
                 HashOperations<String, String, Object> hash = stringRedisTemplate.opsForHash();
                 rankList = ranks.stream().map(article -> {
                     Map<String, Object> map = hash.entries(article);
+                    map.put("article", article);
                     return JSONUtil.toBean(JSONUtil.toJsonStr(map), Rank.class);
                 }).collect(Collectors.toList());
                 ops.set(RANK_CACHE, JSONUtil.toJsonStr(rankList), 3, TimeUnit.HOURS);
@@ -82,7 +83,8 @@ public class BscApplication {
         } else {
             rankList = JSONUtil.toList(JSONUtil.parseArray(strRank), Rank.class);
         }
-        log.info("===> 第{}次访问，耗时{}ms", count, System.currentTimeMillis() - start);
+        long spend = System.currentTimeMillis() - start;
+        log.info("===> 第{}次访问，IP：{}，耗时：{}ms", count, ipAddress, spend);
         return rankList;
     }
 
