@@ -60,8 +60,13 @@ public class Rank {
     private String home;
 
     /**
-     * 排名状态
+     * 原先排名
      */
-    private Boolean status;
+    private Integer oldRank;
+
+    /**
+     * 当前排名
+     */
+    private Integer newRank;
 
 }
