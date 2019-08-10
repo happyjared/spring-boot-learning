@@ -67,6 +67,7 @@ public class BscApplication {
         List<Rank> rankList;
         String strRank = ops.get(RANK_CACHE);
         if (StringUtils.isEmpty(strRank)) {
+            log.info("===> 排名缓存未命中，重新获取中...");
             ZSetOperations<String, String> zSet = stringRedisTemplate.opsForZSet();
             Set<String> ranks = zSet.reverseRange(ARTICLES_SCORE, Integer.MIN_VALUE, Integer.MAX_VALUE);
             if (Objects.nonNull(ranks) && ranks.size() > 0) {
