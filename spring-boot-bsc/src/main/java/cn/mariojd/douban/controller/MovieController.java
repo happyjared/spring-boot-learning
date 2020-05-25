@@ -6,17 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.data.web.SortDefault;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @author Jared
@@ -30,7 +25,7 @@ public class MovieController {
     @Resource
     private MovieService movieService;
 
-    @PostMapping("top250")
+    @GetMapping("top250")
     public Page<Movie> top250(@PageableDefault(size = 250, sort = "sort", direction = Sort.Direction.ASC) Pageable pageable) {
         return movieService.top250(pageable);
     }
