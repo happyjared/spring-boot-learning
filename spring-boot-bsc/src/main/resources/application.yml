@@ -15,3 +15,11 @@ spring:
   mvc:
     servlet:
       load-on-startup: 1
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:12432/douban
+    username: postgres
+    password:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update

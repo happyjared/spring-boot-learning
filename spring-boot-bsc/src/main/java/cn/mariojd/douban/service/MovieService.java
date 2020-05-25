@@ -24,13 +24,8 @@ import java.util.Set;
 @Service
 public class MovieService {
 
-    private static final String KEY = "DOUBAN_MOVIE_TOP250";
-
     @Resource
     private MovieRepository movieRepository;
-
-    @Resource
-    private ZSetOperations<String, Movie> zSetOperations;
 
     public Page<Movie> top250(Pageable pageable) {
         return movieRepository.findAll(pageable);
