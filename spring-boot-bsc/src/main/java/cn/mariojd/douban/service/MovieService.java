@@ -3,6 +3,9 @@ package cn.mariojd.douban.service;
 import cn.mariojd.douban.entity.Movie;
 import cn.mariojd.douban.repository.MovieRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -29,16 +32,8 @@ public class MovieService {
     @Resource
     private ZSetOperations<String, Movie> zSetOperations;
 
-    public List<Movie> top250() {
-//        Set<Movie> movies = zSetOperations.range(KEY, 0, -1);
-//        if (CollectionUtils.isEmpty(movies)) {
-//            movies = new HashSet<>(movieRepository.findAll());
-//            for (Movie movie : movieList) {
-//                zSetOperations.add(KEY, movie, movie.getScore().doubleValue());
-//            }
-//        }
-//        return movieList;
-        return null;
+    public Page<Movie> top250(Pageable pageable) {
+        return movieRepository.findAll(pageable);
     }
 
 }
