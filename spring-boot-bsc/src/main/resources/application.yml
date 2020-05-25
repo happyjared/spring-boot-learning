@@ -17,9 +17,16 @@ spring:
       load-on-startup: 1
   datasource:
     url: jdbc:postgresql://127.0.0.1:12432/douban
-    username: postgres
-    password:
+    username: douban
+    password: douban
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
+    show-sql: true
+    database: postgresql
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL9Dialect
+        temp:
+          use_jdbc_metadata_defaults: false

@@ -5,10 +5,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -17,7 +14,8 @@ import java.util.Date;
  * @date 2020/5/25 16:18
  */
 @Data
-@Entity(name = "tb_movie")
+@Entity
+@Table(name = "tb_movie")
 public class Movie {
 
     @Id
