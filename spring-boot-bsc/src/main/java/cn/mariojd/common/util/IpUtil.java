@@ -1,4 +1,4 @@
-package cn.mariojd.bsc.util;
+package cn.mariojd.common.util;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
