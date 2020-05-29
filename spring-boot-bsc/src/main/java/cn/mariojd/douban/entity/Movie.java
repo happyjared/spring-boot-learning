@@ -85,18 +85,18 @@ public class Movie {
      */
     private Boolean status;
 
-    /**
-     * 更新时间
-     */
-    @LastModifiedDate
-    @Column(name = "update_time", nullable = false)
-    private Date updateTime;
-
-    /**
-     * 创建时间
-     */
-    @CreatedDate
-    @Column(name = "create_time", updatable = false, nullable = false)
-    private Date createTime;
+//    /**
+//     * 更新时间
+//     */
+//    @LastModifiedDate
+//    @Column(name = "update_time", nullable = false)
+//    private Date updateTime;
+//
+//    /**
+//     * 创建时间
+//     */
+//    @CreatedDate
+//    @Column(name = "create_time", updatable = false, nullable = false)
+//    private Date createTime;
 
 }
