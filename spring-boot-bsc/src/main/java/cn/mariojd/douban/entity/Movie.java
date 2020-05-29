@@ -76,6 +76,11 @@ public class Movie {
     private String link;
 
     /**
+     * 本地头图
+     */
+    private String path;
+
+    /**
      * 观看状态
      */
     private Boolean status;
