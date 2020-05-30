@@ -31,6 +31,16 @@ public class Movie {
     private String name;
 
     /**
+     * 剧情简介
+     */
+    private String desc;
+
+    /**
+     * 引用
+     */
+    private String quote;
+
+    /**
      * 上映年份
      */
     @Column(name = "release_year")
