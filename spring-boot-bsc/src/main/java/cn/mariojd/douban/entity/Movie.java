@@ -1,9 +1,11 @@
 package cn.mariojd.douban.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author Jared
@@ -73,7 +75,7 @@ public class Movie {
     private String link;
 
     /**
-     * 本地头图
+     * 头图路径
      */
     private String path;
 
@@ -81,6 +83,13 @@ public class Movie {
      * 观看状态
      */
     private Boolean status;
+
+    /**
+     * 观看日期
+     */
+    @Column(name = "mark_time")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
+    private Date markTime;
 
 //    /**
 //     * 更新时间
