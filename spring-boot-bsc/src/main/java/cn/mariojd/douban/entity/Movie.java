@@ -101,6 +101,19 @@ public class Movie {
     @JsonFormat(pattern = "yyyy/MM/dd", timezone = "GMT+8")
     private Date markTime;
 
+    /**
+     * 花花观看状态
+     */
+    @Column(name = "huahua_status")
+    private Boolean huahuaStatus;
+
+    /**
+     * 花花观看日期
+     */
+    @Column(name = "huahua_mark_time")
+    @JsonFormat(pattern = "yyyy/MM/dd", timezone = "GMT+8")
+    private Date huahuaMarkTime;
+
 //    /**
 //     * 更新时间
 //     */
